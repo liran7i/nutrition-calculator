@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>יחידות תזונה</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="תזונה">
+<meta name="theme-color" content="#0f0f13">
+<meta name="format-detection" content="telephone=no">
+<link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAALoAfyAAAACXBIWXMAAAsTAAALEwEAmpwYAAADpklEQVR4nO3BMQEAAADCoPVP7WsIoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAeAMAAAEAAbQAAAAASUVORK5CYII=">
+<style>
+/* ── FONT: system stack — ללא תלות ב-Google Fonts ── */
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0; padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  background: #0f0f13;
+  color: #f0f0f5;
+  min-height: 100vh;
+  padding-top:    20px;
+  padding-right:  16px;
+  padding-left:   16px;
+  padding-bottom: 90px;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  overflow-x: hidden;
+  direction: rtl;
+}
+
+/* Safari iOS safe area support */
+@supports (padding: env(safe-area-inset-top)) {
+  body {
+    padding-top:    env(safe-area-inset-top, 20px);
+    padding-right:  max(16px, env(safe-area-inset-right, 16px));
+    padding-left:   max(16px, env(safe-area-inset-left,  16px));
+    padding-bottom: calc(90px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* ★ Safari zoom fix — שדות חייבים להיות לפחות 16px */
+select,
+input[type="number"],
+input[type="text"] {
+  font-size: 16px !important;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.container { max-width: 680px; margin: 0 auto; }
+
+/* ── HEADER ── */
+header { text-align: center; padding: 18px 0 14px; }
+header h1 {
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  /* gradient text — Safari needs -webkit- */
+  background: -webkit-linear-gradient(left, #f97316, #a855f7);
+  background:          linear-gradient(to left, #f97316, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+header p { color: #8888aa; font-size: 13px; margin-top: 4px; }
+
+/* ── PROGRESS ──
+   Safari לא תומך ב-gap בתוך flexbox — משתמשים ב-margin במקום
+*/
+.progress-section {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+  margin-right: -5px; /* מפצה על margin של כל כרטיס */
+}
+.prog-card {
+  -webkit-flex: 1 1 70px;
+  flex: 1 1 70px;
+  min-width: 70px;
+  background: #18181f;
+  border: 1px solid #2e2e3e;
+  border-radius: 12px;
+  padding: 12px 10px;
+  position: relative;
+  overflow: hidden;
+  margin-right: 5px;   /* gap replacement */
+  margin-bottom: 5px;
+}
+.prog-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--cc, #888);
+}
+.prog-label { font-size: 11px; color: #8888aa; margin-bottom: 4px; font-weight: 500; }
+.prog-nums {
+  display: -webkit-flex; display: flex;
+  -webkit-align-items: baseline; align-items: baseline;
+  margin-bottom: 7px;
+}
+.prog-current { font-size: 22px; font-weight: 900; color: var(--cc, #888); }
+.prog-sep     { font-size: 12px; color: #8888aa; margin: 0 2px; }
+.prog-goal    { font-size: 12px; color: #8888aa; }
+.bar-track    { height: 4px; border-radius: 99px; background: #22222c; overflow: hidden; }
+.bar-fill     { height: 100%; border-radius: 99px; background: var(--cc, #888); -webkit-transition: width 0.4s; transition: width 0.4s; }
+
+/* ── TABS ── */
+.tabs {
+  display: -webkit-flex; display: flex;
+  margin-bottom: 12px;
+}
+.tab-btn {
+  -webkit-flex: 1; flex: 1;
+  padding: 10px 2px;
+  border: 1px solid #2e2e3e;
+  border-radius: 8px;
+  background: #18181f;
+  color: #8888aa;
+  font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  touch-action: manipulation;
+  -webkit-transition: all 0.18s; transition: all 0.18s;
+  /* gap replacement for tabs */
+  margin-right: 5px;
+}
+.tab-btn:last-child { margin-right: 0; }
+.tab-btn.active { background: #22222c; color: #f0f0f5; border-color: #555; }
+
+/* ── CARD ── */
+.card {
+  background: #18181f;
+  border: 1px solid #2e2e3e;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.card h2 { font-size: 15px; font-weight: 700; margin-bottom: 13px; }
+
+/* ── FORM ── */
+.form-col {
+  display: -webkit-flex; display: flex;
+  -webkit-flex-direction: column; flex-direction: column;
+}
+.form-col > * { margin-bottom: 11px; }
+.form-col > *:last-child { margin-bottom: 0; }
+
+.form-label {
+  display: block;
+  font-size: 12px;
+  color: #8888aa;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+select,
+input[type="number"],
+input[type="text"] {
+  width: 100%;
+  padding: 12px 12px;
+  background: #22222c;
+  border: 1px solid #2e2e3e;
+  border-radius: 8px;
+  color: #f0f0f5;
+  font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  outline: none;
+  direction: rtl;
+  -webkit-transition: border-color 0.2s; transition: border-color 0.2s;
+  width: 100%;
+}
+select:focus, input:focus { border-color: #a855f7; }
+select option { background: #22222c; color: #f0f0f5; }
+
+/* custom select arrow */
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238888aa'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: left 12px center;
+  padding-left: 30px;
+}
+
+input[type="color"] {
+  width: 48px; height: 44px;
+  padding: 2px;
+  background: #22222c;
+  border: 1px solid #2e2e3e;
+  border-radius: 8px;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+
+.two-col {
+  display: -webkit-flex; display: flex;
+}
+.two-col > *:first-child { -webkit-flex: 1; flex: 1; margin-left: 9px; }
+.two-col > *:last-child  { -webkit-flex: 1; flex: 1; }
+
+/* ── INPUT TOGGLE ── */
+.input-toggle {
+  display: -webkit-flex; display: flex;
+  margin-bottom: 7px;
+}
+.toggle-btn {
+  -webkit-flex: 1; flex: 1;
+  padding: 10px 6px;
+  background: #22222c;
+  border: 1px solid #2e2e3e;
+  border-radius: 8px;
+  color: #8888aa;
+  font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  touch-action: manipulation;
+  -webkit-transition: all 0.18s; transition: all 0.18s;
+  margin-right: 6px;
+}
+.toggle-btn:last-child { margin-right: 0; }
+.toggle-btn.active {
+  background: rgba(168,85,247,0.15);
+  border-color: #a855f7;
+  color: #a855f7;
+}
+
+/* ── PREVIEW ── */
+.preview-box {
+  font-size: 13px; color: #a855f7;
+  background: rgba(168,85,247,0.12);
+  border-radius: 8px; padding: 9px 12px;
+  min-height: 36px;
+  display: -webkit-flex; display: flex;
+  -webkit-align-items: center; align-items: center;
+  margin-top: 7px;
+}
+.preview-box.empty { background: transparent; }
+
+/* ── BUTTONS ── */
+.btn-add {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  margin-top: 4px;
+  background: -webkit-linear-gradient(left, #f97316, #a855f7);
+  background:          linear-gradient(to left, #f97316, #a855f7);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-appearance: none;
+  -webkit-transition: opacity 0.18s; transition: opacity 0.18s;
+  text-align: center;
+}
+.btn-add:active { opacity: 0.78; }
+.btn-add.green {
+  background: -webkit-linear-gradient(left, #22c55e, #0ea5e9);
+  background:          linear-gradient(to left, #22c55e, #0ea5e9);
+}
+
+.btn-save {
+  display: block; width: 100%; margin-top: 12px; padding: 12px;
+  background: #22222c; border: 1px solid #2e2e3e; border-radius: 8px;
+  color: #f0f0f5;
+  font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 15px; font-weight: 600;
+  cursor: pointer; touch-action: manipulation; -webkit-appearance: none;
+}
+.btn-save:active { border-color: #a855f7; color: #a855f7; }
+
+.btn-reset {
+  display: block; margin: 0 auto; padding: 9px 24px;
+  background: none; border: 1px solid rgba(255,96,96,0.3); border-radius: 8px;
+  color: #ff6060;
+  font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 13px; cursor: pointer; touch-action: manipulation; -webkit-appearance: none;
+}
+
+/* ── LOG ── */
+.log-empty { text-align: center; color: #8888aa; padding: 22px 0; font-size: 14px; }
+.log-item {
+  display: -webkit-flex; display: flex;
+  -webkit-align-items: center; align-items: center;
+  padding: 10px 12px;
+  background: #22222c; border-radius: 8px; border: 1px solid #2e2e3e;
+  margin-bottom: 7px;
+}
+.log-item:last-child { margin-bottom: 0; }
+.log-dot   { width: 7px; height: 7px; border-radius: 50%; -webkit-flex-shrink: 0; flex-shrink: 0; margin-left: 9px; }
+.log-info  { -webkit-flex: 1; flex: 1; min-width: 0; }
+.log-name  { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.log-meta  { font-size: 11px; color: #8888aa; margin-top: 1px; }
+.log-units { font-size: 14px; font-weight: 700; -webkit-flex-shrink: 0; flex-shrink: 0; margin-left: 8px; }
+.btn-del   {
+  background: none; border: none; color: #8888aa; cursor: pointer;
+  font-size: 14px; padding: 5px 8px; border-radius: 4px;
+  touch-action: manipulation; -webkit-flex-shrink: 0; flex-shrink: 0;
+}
+.btn-del:active { color: #ff6060; }
+
+/* ── GOALS ── */
+.goals-wrap { display: -webkit-flex; display: flex; -webkit-flex-wrap: wrap; flex-wrap: wrap; }
+.goal-item { -webkit-flex: 1 1 80px; flex: 1 1 80px; margin-right: 9px; margin-bottom: 9px; }
+.goal-item:last-child { margin-right: 0; }
+.goal-item .form-label { margin-bottom: 4px; }
+
+/* ── MANAGE ── */
+.section-note { font-size: 12px; color: #8888aa; margin-bottom: 10px; line-height: 1.5; }
+.cat-row  { background: #22222c; border: 1px solid #2e2e3e; border-radius: 8px; overflow: hidden; margin-bottom: 7px; }
+.cat-row:last-child { margin-bottom: 0; }
+.cat-header {
+  display: -webkit-flex; display: flex;
+  -webkit-align-items: center; align-items: center;
+  padding: 11px 12px; cursor: pointer; touch-action: manipulation;
+}
+.cat-dot    { width: 9px; height: 9px; border-radius: 50%; -webkit-flex-shrink: 0; flex-shrink: 0; margin-left: 9px; }
+.cat-name   { -webkit-flex: 1; flex: 1; font-size: 14px; font-weight: 600; }
+.cat-count  { font-size: 11px; color: #8888aa; margin-left: 8px; }
+.cat-arrow  { font-size: 11px; color: #8888aa; -webkit-transition: -webkit-transform 0.2s; transition: transform 0.2s; }
+.cat-arrow.open { -webkit-transform: rotate(90deg); transform: rotate(90deg); }
+.btn-del-cat {
+  background: none; border: 1px solid rgba(255,96,96,0.25); color: #ff6060;
+  border-radius: 4px; padding: 3px 9px; font-size: 11px; cursor: pointer;
+  font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  touch-action: manipulation; -webkit-appearance: none; margin-left: 6px;
+}
+.food-list { display: none; border-top: 1px solid #2e2e3e; padding: 8px 6px; }
+.food-list.open { display: block; }
+.food-item {
+  display: -webkit-flex; display: flex;
+  -webkit-align-items: center; align-items: center;
+  padding: 7px 5px; border-radius: 6px;
+}
+.food-item-name  { -webkit-flex: 1; flex: 1; font-size: 13px; }
+.food-item-grams { font-size: 11px; color: #8888aa; margin-left: 6px; white-space: nowrap; }
+.btn-edit-food {
+  background: none; border: 1px solid #2e2e3e; color: #8888aa;
+  border-radius: 4px; padding: 4px 8px; font-size: 11px; cursor: pointer;
+  font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  touch-action: manipulation; white-space: nowrap; -webkit-appearance: none;
+  margin-left: 5px;
+}
+.btn-del-food {
+  background: none; border: none; color: #8888aa; cursor: pointer;
+  font-size: 13px; padding: 4px 6px; touch-action: manipulation;
+}
+.btn-del-food:active { color: #ff6060; }
+
+/* ── PANEL ── */
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* ── MODAL — Safari needs explicit flex display ── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.78);
+  z-index: 500;
+  -webkit-align-items: center; align-items: center;
+  -webkit-justify-content: center; justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.open {
+  display: -webkit-flex;
+  display: flex;
+}
+.modal {
+  background: #18181f; border: 1px solid #2e2e3e; border-radius: 14px;
+  padding: 20px; width: 100%; max-width: 360px;
+  max-height: 85vh; overflow-y: auto; -webkit-overflow-scrolling: touch;
+}
+.modal h3     { font-size: 15px; font-weight: 700; margin-bottom: 13px; }
+.modal-text   { font-size: 14px; color: #ccc; line-height: 1.55; }
+.modal-btns   { display: -webkit-flex; display: flex; margin-top: 14px; }
+.modal-btns button {
+  -webkit-flex: 1; flex: 1;
+  padding: 12px; border-radius: 8px;
+  font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 15px; font-weight: 600;
+  cursor: pointer; border: 1px solid #2e2e3e;
+  touch-action: manipulation; -webkit-appearance: none;
+  margin-right: 7px;
+}
+.modal-btns button:last-child { margin-right: 0; }
+.btn-confirm {
+  background: -webkit-linear-gradient(left, #f97316, #a855f7);
+  background:          linear-gradient(to left, #f97316, #a855f7);
+  color: #fff; border: none !important;
+}
+.btn-confirm.danger {
+  background: -webkit-linear-gradient(left, #ef4444, #b91c1c);
+  background:          linear-gradient(to left, #ef4444, #b91c1c);
+}
+.btn-cancel { background: #22222c; color: #aaa; }
+.modal-form-col { display: -webkit-flex; display: flex; -webkit-flex-direction: column; flex-direction: column; }
+.modal-form-col > * { margin-bottom: 10px; }
+.modal-form-col > *:last-child { margin-bottom: 0; }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(70px);
+          transform: translateX(-50%) translateY(70px);
+  background: #22222c; border: 1px solid #3e3e5e; border-radius: 8px;
+  padding: 10px 22px; font-size: 14px; font-weight: 600; color: #f0f0f5;
+  z-index: 600; pointer-events: none; white-space: nowrap;
+  -webkit-transition: -webkit-transform 0.26s cubic-bezier(.4,0,.2,1);
+          transition:         transform 0.26s cubic-bezier(.4,0,.2,1);
+}
+@supports (padding: env(safe-area-inset-bottom)) {
+  .toast { bottom: max(24px, calc(env(safe-area-inset-bottom) + 16px)); }
+}
+.toast.show {
+  -webkit-transform: translateX(-50%) translateY(0);
+          transform: translateX(-50%) translateY(0);
+}
+
+/* ── iOS TIP ── */
+.ios-tip {
+  display: none; position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: #1a1a26; border-top: 1px solid #2e2e3e;
+  padding: 13px 16px;
+  -webkit-align-items: center; align-items: center;
+  z-index: 400; direction: rtl;
+}
+@supports (padding: env(safe-area-inset-bottom)) {
+  .ios-tip { padding-bottom: max(13px, calc(env(safe-area-inset-bottom) + 10px)); }
+}
+.ios-tip.show { display: -webkit-flex; display: flex; }
+.ios-tip-icon { font-size: 20px; -webkit-flex-shrink: 0; flex-shrink: 0; margin-left: 10px; }
+.ios-tip-text { -webkit-flex: 1; flex: 1; font-size: 13px; line-height: 1.45; }
+.ios-tip-close {
+  background: none; border: none; color: #8888aa;
+  font-size: 18px; cursor: pointer; padding: 4px 9px;
+  -webkit-flex-shrink: 0; flex-shrink: 0; touch-action: manipulation;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>מחשבון יחידות תזונה</h1>
+    <p>גרסה 2.1 · חלבון · פחמימה · שומן · קטגוריות אישיות</p>
+  </header>
+
+  <div class="progress-section" id="progress-section"></div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('add',this)">➕ הוסף</button>
+    <button class="tab-btn" onclick="switchTab('log',this)">📋 יומן</button>
+    <button class="tab-btn" onclick="switchTab('goals',this)">🎯 יעדים</button>
+    <button class="tab-btn" onclick="switchTab('manage',this)">⚙️ ניהול</button>
+  </div>
+
+  <!-- הוסף ארוחה -->
+  <div class="panel active" id="panel-add">
+    <div class="card">
+      <h2>הוסף ארוחה</h2>
+      <div class="form-col">
+        <div>
+          <label class="form-label">קטגוריה</label>
+          <select id="sel-cat" onchange="updateFoodList()"></select>
+        </div>
+        <div>
+          <label class="form-label">מאכל</label>
+          <select id="sel-food" onchange="onFoodChange()"></select>
+        </div>
+        <div>
+          <label class="form-label">שיטת הזנה</label>
+          <div class="input-toggle">
+            <button class="toggle-btn active" id="tg-grams" onclick="setMode('grams')">לפי גרמים</button>
+            <button class="toggle-btn"        id="tg-units" onclick="setMode('units')">לפי יחידות</button>
+          </div>
+          <div id="wrap-grams">
+            <input type="number" id="inp-grams" placeholder="גרמים" min="0" inputmode="decimal" oninput="calcG()">
+          </div>
+          <div id="wrap-units" style="display:none">
+            <input type="number" id="inp-units" placeholder="יחידות" min="0" step="0.1" inputmode="decimal" oninput="calcU()">
+          </div>
+          <div id="preview" class="preview-box empty"></div>
+        </div>
+        <button class="btn-add" onclick="addEntry()">הוסף ✓</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- יומן -->
+  <div class="panel" id="panel-log">
+    <div class="card">
+      <h2>יומן היום</h2>
+      <div id="log-container"><div class="log-empty">לא הוספת ארוחות היום עדיין.</div></div>
+    </div>
+    <br>
+    <button class="btn-reset" onclick="askReset()">🗑️ אפס יום</button>
+  </div>
+
+  <!-- יעדים -->
+  <div class="panel" id="panel-goals">
+    <div class="card">
+      <h2>הגדר יעדים יומיים</h2>
+      <div class="goals-wrap" id="goals-wrap"></div>
+      <button class="btn-save" onclick="saveGoals()">שמור יעדים ✓</button>
+    </div>
+  </div>
+
+  <!-- ניהול -->
+  <div class="panel" id="panel-manage">
+    <div class="card">
+      <h2>📋 קטגוריות ומוצרים</h2>
+      <p class="section-note">לחץ על קטגוריה כדי לפתוח ולערוך מוצרים</p>
+      <div id="cat-list"></div>
+    </div>
+    <div class="card">
+      <h2>🍽️ הוסף מוצר</h2>
+      <div class="form-col">
+        <div>
+          <label class="form-label">קטגוריה</label>
+          <select id="nf-cat"></select>
+        </div>
+        <div>
+          <label class="form-label">שם המוצר</label>
+          <input type="text" id="nf-name" placeholder="שם המוצר" autocomplete="off">
+        </div>
+        <div>
+          <label class="form-label">גרמים ל-1 יחידה</label>
+          <input type="number" id="nf-grams" placeholder="גרמים" min="1" inputmode="decimal">
+        </div>
+        <div>
+          <label class="form-label">או: תיאור כמות קבועה</label>
+          <input type="text" id="nf-label" placeholder="למשל: גביע אחד" autocomplete="off">
+        </div>
+        <button class="btn-add" onclick="addFood()">הוסף מוצר ✓</button>
+      </div>
+    </div>
+    <div class="card">
+      <h2>➕ קטגוריה חדשה</h2>
+      <div class="form-col">
+        <div class="two-col">
+          <div>
+            <label class="form-label">שם</label>
+            <input type="text" id="nc-name" placeholder="ירקות" autocomplete="off">
+          </div>
+          <div>
+            <label class="form-label">צבע</label>
+            <input type="color" id="nc-color" value="#22c55e">
+          </div>
+        </div>
+        <div>
+          <label class="form-label">אמוג׳י</label>
+          <input type="text" id="nc-emoji" placeholder="🥦" maxlength="4" autocomplete="off">
+        </div>
+        <button class="btn-add green" onclick="addCat()">צור קטגוריה</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- Modal: ערוך מוצר -->
+<div class="modal-overlay" id="m-edit">
+  <div class="modal">
+    <h3>✏️ ערוך מוצר</h3>
+    <input type="hidden" id="e-cat">
+    <input type="hidden" id="e-idx">
+    <div class="modal-form-col">
+      <div>
+        <label class="form-label">שם המוצר</label>
+        <input type="text" id="e-name" autocomplete="off">
+      </div>
+      <div>
+        <label class="form-label">גרמים ל-1 יחידה <span style="color:#8888aa;font-size:11px">(0 = קבוע)</span></label>
+        <input type="number" id="e-grams" min="0" step="0.5" inputmode="decimal">
+      </div>
+      <div>
+        <label class="form-label">תיאור כמות קבועה</label>
+        <input type="text" id="e-label" placeholder="גביע אחד" autocomplete="off">
+      </div>
+    </div>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeM('m-edit')">ביטול</button>
+      <button class="btn-confirm" onclick="saveEdit()">שמור ✓</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: אישור פעולה -->
+<div class="modal-overlay" id="m-confirm">
+  <div class="modal">
+    <h3 id="mc-title">אישור</h3>
+    <p class="modal-text" id="mc-text"></p>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeM('m-confirm')">ביטול</button>
+      <button class="btn-confirm danger" id="mc-ok">אישור</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: הודעה -->
+<div class="modal-overlay" id="m-alert">
+  <div class="modal">
+    <p class="modal-text" id="ma-text"></p>
+    <div class="modal-btns" style="-webkit-justify-content:center;justify-content:center">
+      <button class="btn-confirm" onclick="closeM('m-alert')" style="max-width:120px">אוקיי</button>
+    </div>
+  </div>
+</div>
+
+<!-- iOS tip -->
+<div class="ios-tip" id="ios-tip">
+  <span class="ios-tip-icon">🍎</span>
+  <span class="ios-tip-text">להוספה כאפליקציה: לחץ <strong>שתף ↑</strong> ← <strong>הוסף למסך הבית</strong></span>
+  <button class="ios-tip-close" onclick="document.getElementById('ios-tip').classList.remove('show')">✕</button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════════
+// DATA
+// ══════════════════════════════════════
+var BUILTIN=[
+  {id:'protein',name:'חלבון', emoji:'🥩',color:'#f97316',builtIn:true},
+  {id:'carb',   name:'פחמימה',emoji:'🌾',color:'#3b82f6',builtIn:true},
+  {id:'fat',    name:'שומן',  emoji:'🥑',color:'#a855f7',builtIn:true},
+];
+var DF={
+  protein:[
+    {name:'חזה עוף / פילה דג / הודו (נא)',grams:130},
+    {name:'בשר בקר / כבש רזה',grams:130},
+    {name:'כבד עוף',grams:120},
+    {name:'שוורמה / בשר טחון רזה',grams:120},
+    {name:'סלמון / דג שמן',grams:130},
+    {name:'קוטג׳ 5% / 9%',grams:170},
+    {name:'גבינה בולגרית 5%',grams:100},
+    {name:'גבינה צהובה 9%',grams:100},
+    {name:'גבינה לבנה 5%',grams:160},
+    {name:'שמנת חמוצה / לבן',grams:170},
+    {name:'חלבוני ביצה (2 לבנים = 1 יח׳)',grams:null,ew:true,label:'הכנס מספר לבנים'},
+    {name:'יוגורט / משקה חלבון PRO',grams:null,fix:1,label:'גביע / בקבוק'},
+    {name:'טונה בשמן / מים',grams:null,fix:1,label:'קופסה אחת'},
+  ],
+  carb:[
+    {name:'לחם / פיתה',grams:65},
+    {name:'אורז / פסטה / כוסמת / עדשים (מבושל)',grams:130},
+    {name:'תפוח אדמה',grams:175},
+    {name:'בטטה',grams:130},
+    {name:'תירס',grams:125},
+    {name:'קוסקוס (מבושל)',grams:100},
+    {name:'קינואה (מבושל)',grams:130},
+    {name:'שיבולת שועל (יבש)',grams:40},
+    {name:'לחם קל / פריכיות',grams:38},
+    {name:'וופל / ויפל',grams:50},
+    {name:'קרקר דגנים',grams:30},
+    {name:'בננה',grams:80},
+    {name:'ענבים',grams:120},
+    {name:'פרי (תפוח / תפוז / 2 קלמנטינות)',grams:null,fix:1,label:'פרי בינוני'},
+  ],
+  fat:[
+    {name:'טחינה גולמית',grams:15},
+    {name:'אגוזי מלך / קשיו',grams:30},
+    {name:'שקדים',grams:25},
+    {name:'חמאת בוטנים',grams:25},
+    {name:'חמאת שקדים / קשיו',grams:20},
+    {name:'אבוקדו',grams:50},
+    {name:'זיתים',grams:170},
+    {name:'שמן זית',grams:10},
+    {name:'שמן קוקוס',grams:10},
+    {name:'חמאה',grams:12},
+    {name:'גבינת שמנת',grams:30},
+    {name:'חלווה (פינוק)',grams:22},
+    {name:'שוקולד מריר 70%+ (פינוק)',grams:25},
+  ],
+};
+
+// ══════════════════════════════════════
+// STORAGE
+// ══════════════════════════════════════
+function today(){return new Date().toISOString().slice(0,10);}
+function ls(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return d;}}
+function wr(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+
+// ══════════════════════════════════════
+// STATE
+// ══════════════════════════════════════
+var cats=ls('nc',null);
+if(!cats){cats=JSON.parse(JSON.stringify(BUILTIN));wr('nc',cats);}
+BUILTIN.forEach(function(b){if(!cats.find(function(c){return c.id===b.id;}))cats.unshift(b);});
+
+var foods=ls('nf',null);
+if(!foods){foods=JSON.parse(JSON.stringify(DF));wr('nf',foods);}
+['protein','carb','fat'].forEach(function(id){if(!foods[id])foods[id]=JSON.parse(JSON.stringify(DF[id]));});
+
+var goals=ls('ng',{protein:8,carb:10,fat:4});
+var log=ls('nl_'+today(),[]);
+var inputMode='grams';
+var openCat=null;
+
+// ══════════════════════════════════════
+// MODALS (replace confirm/alert — Safari standalone מחייב זאת)
+// ══════════════════════════════════════
+var _cb=null;
+function askConfirm(title,text,cb){
+  document.getElementById('mc-title').textContent=title;
+  document.getElementById('mc-text').textContent=text;
+  _cb=cb;
+  document.getElementById('mc-ok').onclick=function(){closeM('m-confirm');if(_cb)_cb();_cb=null;};
+  openM('m-confirm');
+}
+function showAlert(text){document.getElementById('ma-text').textContent=text;openM('m-alert');}
+function openM(id){document.getElementById(id).className='modal-overlay open';}
+function closeM(id){document.getElementById(id).className='modal-overlay';}
+
+['m-edit','m-confirm','m-alert'].forEach(function(id){
+  document.getElementById(id).addEventListener('click',function(e){if(e.target===this)closeM(id);});
+});
+
+// ══════════════════════════════════════
+// PROGRESS
+// ══════════════════════════════════════
+function renderProgress(){
+  var totals={};
+  cats.forEach(function(c){totals[c.id]=0;});
+  log.forEach(function(e){if(totals[e.cat]!==undefined)totals[e.cat]=r2(totals[e.cat]+e.units);});
+  var sec=document.getElementById('progress-section');
+  sec.innerHTML='';
+  cats.forEach(function(cat){
+    var val=totals[cat.id]||0;
+    var goal=goals[cat.id]||5;
+    var pct=Math.min(100,(val/goal)*100);
+    var d=document.createElement('div');
+    d.className='prog-card';
+    d.style.setProperty('--cc',cat.color||'#888');
+    d.innerHTML=
+      '<div class="prog-label">'+(cat.emoji||'📦')+' '+cat.name+'</div>'+
+      '<div class="prog-nums"><span class="prog-current">'+val+'</span>'+
+      '<span class="prog-sep">/</span><span class="prog-goal">'+goal+'</span></div>'+
+      '<div class="bar-track"><div class="bar-fill" style="width:'+pct+'%"></div></div>';
+    sec.appendChild(d);
+  });
+}
+
+// ══════════════════════════════════════
+// SELECTS
+// ══════════════════════════════════════
+function fillCats(){
+  ['sel-cat','nf-cat'].forEach(function(id){
+    var s=document.getElementById(id);if(!s)return;
+    var prev=s.value; s.innerHTML='';
+    cats.forEach(function(c){
+      var o=document.createElement('option');o.value=c.id;o.textContent=(c.emoji||'📦')+' '+c.name;s.appendChild(o);
+    });
+    if(prev&&cats.find(function(c){return c.id===prev;}))s.value=prev;
+  });
+}
+
+function updateFoodList(){
+  var cat=document.getElementById('sel-cat').value;
+  var sel=document.getElementById('sel-food'); sel.innerHTML='';
+  (foods[cat]||[]).forEach(function(f,i){
+    var o=document.createElement('option');o.value=i;o.textContent=f.name;sel.appendChild(o);
+  });
+  onFoodChange();
+}
+
+// ══════════════════════════════════════
+// FOOD / CALC
+// ══════════════════════════════════════
+function gf(){
+  var cat=document.getElementById('sel-cat').value;
+  return (foods[cat]||[])[+document.getElementById('sel-food').value];
+}
+function onFoodChange(){
+  var f=gf();if(!f)return;
+  document.getElementById('inp-grams').value='';
+  document.getElementById('inp-units').value='';
+  setP('');
+  document.getElementById('inp-grams').placeholder=
+    f.ew?'מספר לבנים':f.fix?(f.label||'כמות קבועה'):'גרמים (מנה: '+f.grams+' גר׳)';
+}
+function setMode(m){
+  inputMode=m;
+  document.getElementById('tg-grams').className='toggle-btn'+(m==='grams'?' active':'');
+  document.getElementById('tg-units').className='toggle-btn'+(m==='units'?' active':'');
+  document.getElementById('wrap-grams').style.display=m==='grams'?'':'none';
+  document.getElementById('wrap-units').style.display=m==='units'?'':'none';
+  document.getElementById('inp-grams').value='';
+  document.getElementById('inp-units').value='';
+  setP('');
+}
+function calcG(){
+  var f=gf();if(!f)return;
+  var g=parseFloat(document.getElementById('inp-grams').value);
+  if(!g||g<=0){setP('');return;}
+  setP('= '+r2(f.ew?g/2:f.fix?f.fix:g/f.grams)+' יחידות');
+}
+function calcU(){
+  var f=gf();if(!f)return;
+  var u=parseFloat(document.getElementById('inp-units').value);
+  if(!u||u<=0){setP('');return;}
+  if(f.ew){setP('= '+r2(u*2)+' לבנים');return;}
+  if(f.fix){setP(f.label||'כמות קבועה');return;}
+  setP('= '+r2(u*f.grams)+' גרם');
+}
+function setP(t){
+  var el=document.getElementById('preview');
+  el.textContent=t;
+  el.className='preview-box'+(t?'':' empty');
+}
+
+// ══════════════════════════════════════
+// ADD ENTRY
+// ══════════════════════════════════════
+function addEntry(){
+  var cat=document.getElementById('sel-cat').value;
+  var f=gf();
+  if(!f){showAlert('בחר מאכל תחילה');return;}
+  var units;
+  if(inputMode==='grams'){
+    var g=parseFloat(document.getElementById('inp-grams').value);
+    if(!g||g<=0){showAlert('הכנס כמות תקינה');return;}
+    units=f.ew?g/2:f.fix?f.fix:g/f.grams;
+  }else{
+    var u=parseFloat(document.getElementById('inp-units').value);
+    if(!u||u<=0){showAlert('הכנס כמות תקינה');return;}
+    units=u;
+  }
+  var co=cats.find(function(c){return c.id===cat;});
+  log.push({cat:cat,name:f.name,units:r2(units),
+    catName:co?co.name:cat,catColor:co?co.color:'#888',
+    time:new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'})});
+  wr('nl_'+today(),log);
+  renderLog(); renderProgress();
+  document.getElementById('inp-grams').value='';
+  document.getElementById('inp-units').value='';
+  setP('');
+  toast('✓ נוסף בהצלחה');
+}
+
+// ══════════════════════════════════════
+// LOG
+// ══════════════════════════════════════
+function renderLog(){
+  var c=document.getElementById('log-container');
+  if(!log.length){c.innerHTML='<div class="log-empty">לא הוספת ארוחות היום עדיין.</div>';return;}
+  var h='';
+  log.forEach(function(e,i){
+    var col=(cats.find(function(c){return c.id===e.cat;})||{color:e.catColor||'#888'}).color;
+    h+='<div class="log-item">'+
+      '<span class="log-dot" style="background:'+col+'"></span>'+
+      '<div class="log-info"><div class="log-name">'+e.name+'</div>'+
+      '<div class="log-meta">'+(e.catName||e.cat)+' · '+e.time+'</div></div>'+
+      '<span class="log-units" style="color:'+col+'">'+e.units+'</span>'+
+      '<button class="btn-del" onclick="delE('+i+')">✕</button></div>';
+  });
+  c.innerHTML=h;
+}
+function delE(i){
+  log.splice(i,1);wr('nl_'+today(),log);
+  renderLog();renderProgress();
+}
+function askReset(){
+  askConfirm('אפס יום','כל הערכים של היום יימחקו. להמשיך?',function(){
+    log=[];localStorage.removeItem('nl_'+today());
+    renderLog();renderProgress();toast('✓ היומן אופס');
+  });
+}
+
+// ══════════════════════════════════════
+// GOALS
+// ══════════════════════════════════════
+function renderGoals(){
+  var w=document.getElementById('goals-wrap'); w.innerHTML='';
+  cats.forEach(function(cat){
+    var d=document.createElement('div'); d.className='goal-item';
+    d.innerHTML='<label class="form-label" style="color:'+(cat.color||'#8888aa')+'">'+(cat.emoji||'📦')+' '+cat.name+'</label>'+
+      '<input type="number" id="g-'+cat.id+'" min="1" max="50" inputmode="numeric" value="'+(goals[cat.id]||5)+'">';
+    w.appendChild(d);
+  });
+}
+function saveGoals(){
+  cats.forEach(function(cat){
+    var inp=document.getElementById('g-'+cat.id);if(inp)goals[cat.id]=+inp.value||5;
+  });
+  wr('ng',goals);renderProgress();toast('✓ יעדים נשמרו');
+}
+
+// ══════════════════════════════════════
+// CAT LIST
+// ══════════════════════════════════════
+function renderCatList(){
+  var h='';
+  cats.forEach(function(c){
+    var isO=openCat===c.id;
+    var fl=foods[c.id]||[];
+    h+='<div class="cat-row">'+
+      '<div class="cat-header" onclick="togCat(\''+c.id+'\')">'+
+        '<span class="cat-dot" style="background:'+(c.color||'#888')+'"></span>'+
+        '<span class="cat-name">'+(c.emoji||'📦')+' '+c.name+'</span>'+
+        '<span class="cat-count">'+fl.length+' מוצרים</span>'+
+        (c.builtIn?'':'<button class="btn-del-cat" onclick="event.stopPropagation();askDelCat(\''+c.id+'\')">הסר</button>')+
+        '<span class="cat-arrow'+(isO?' open':'')+'">▶</span>'+
+      '</div>'+
+      '<div class="food-list'+(isO?' open':'')+'">';
+    if(!fl.length){
+      h+='<div style="color:#8888aa;font-size:12px;padding:5px">אין מוצרים עדיין</div>';
+    }else{
+      fl.forEach(function(f,fi){
+        var gl=f.ew?'2 לבנים=1 יח׳':f.fix?(f.label||'קבוע'):(f.grams+' גר׳/יח׳');
+        h+='<div class="food-item">'+
+          '<span class="food-item-name">'+f.name+'</span>'+
+          '<span class="food-item-grams">'+gl+'</span>'+
+          '<button class="btn-edit-food" onclick="openEdit(\''+c.id+'\','+fi+')">✏️ ערוך</button>'+
+          '<button class="btn-del-food"  onclick="askDelFood(\''+c.id+'\','+fi+')">✕</button>'+
+          '</div>';
+      });
+    }
+    h+='</div></div>';
+  });
+  document.getElementById('cat-list').innerHTML=h;
+}
+function togCat(id){openCat=openCat===id?null:id;renderCatList();}
+
+// ══════════════════════════════════════
+// EDIT FOOD
+// ══════════════════════════════════════
+function openEdit(cid,fi){
+  var f=(foods[cid]||[])[fi];if(!f)return;
+  document.getElementById('e-cat').value=cid;
+  document.getElementById('e-idx').value=fi;
+  document.getElementById('e-name').value=f.name;
+  document.getElementById('e-grams').value=f.grams||0;
+  document.getElementById('e-label').value=f.label||'';
+  openM('m-edit');
+}
+function saveEdit(){
+  var cid=document.getElementById('e-cat').value;
+  var fi=+document.getElementById('e-idx').value;
+  var name=document.getElementById('e-name').value.trim();
+  var grams=parseFloat(document.getElementById('e-grams').value);
+  var label=document.getElementById('e-label').value.trim();
+  if(!name){showAlert('הכנס שם מוצר');return;}
+  var f=(foods[cid]||[])[fi];if(!f)return;
+  f.name=name;
+  if(grams>0){f.grams=grams;delete f.fix;delete f.ew;if(label)f.label=label;else delete f.label;}
+  else{f.grams=null;f.fix=1;f.label=label||'כמות קבועה';}
+  wr('nf',foods);
+  closeM('m-edit');renderCatList();updateFoodList();toast('✓ מוצר עודכן');
+}
+
+// ══════════════════════════════════════
+// DELETE FOOD / CAT
+// ══════════════════════════════════════
+function askDelFood(cid,fi){
+  var f=(foods[cid]||[])[fi];if(!f)return;
+  askConfirm('מחק מוצר','למחוק את "'+f.name+'"?',function(){
+    (foods[cid]||[]).splice(fi,1);wr('nf',foods);
+    renderCatList();updateFoodList();toast('✓ מוצר נמחק');
+  });
+}
+function askDelCat(id){
+  var cat=cats.find(function(c){return c.id===id;});if(!cat)return;
+  askConfirm('מחק קטגוריה','למחוק "'+cat.name+'"? כל המוצרים שלה יימחקו.',function(){
+    cats=cats.filter(function(c){return c.id!==id;});
+    delete foods[id];
+    log=log.filter(function(e){return e.cat!==id;});
+    if(openCat===id)openCat=null;
+    wr('nc',cats);wr('nf',foods);wr('nl_'+today(),log);
+    refreshAll();toast('✓ קטגוריה נמחקה');
+  });
+}
+
+// ══════════════════════════════════════
+// ADD FOOD / CAT
+// ══════════════════════════════════════
+function addFood(){
+  var cat=document.getElementById('nf-cat').value;
+  var name=document.getElementById('nf-name').value.trim();
+  var grams=parseFloat(document.getElementById('nf-grams').value);
+  var label=document.getElementById('nf-label').value.trim();
+  if(!name){showAlert('הכנס שם מוצר');return;}
+  if(!foods[cat])foods[cat]=[];
+  if(grams>0)foods[cat].push({name:name,grams:grams});
+  else if(label)foods[cat].push({name:name,fix:1,label:label});
+  else{showAlert('הכנס גרמים או תיאור כמות');return;}
+  wr('nf',foods);
+  document.getElementById('nf-name').value='';
+  document.getElementById('nf-grams').value='';
+  document.getElementById('nf-label').value='';
+  openCat=cat;
+  renderCatList();updateFoodList();toast('✓ מוצר נוסף');
+}
+function addCat(){
+  var name=document.getElementById('nc-name').value.trim();
+  var color=document.getElementById('nc-color').value;
+  var emoji=document.getElementById('nc-emoji').value.trim()||'📦';
+  if(!name){showAlert('הכנס שם קטגוריה');return;}
+  var id='c'+Date.now();
+  cats.push({id:id,name:name,emoji:emoji,color:color,builtIn:false});
+  foods[id]=[];goals[id]=5;
+  wr('nc',cats);wr('nf',foods);wr('ng',goals);
+  document.getElementById('nc-name').value='';
+  document.getElementById('nc-emoji').value='';
+  refreshAll();toast('✓ קטגוריה נוצרה');
+}
+
+// ══════════════════════════════════════
+// TABS
+// ══════════════════════════════════════
+function switchTab(name,btn){
+  var ps=document.querySelectorAll('.panel');
+  for(var i=0;i<ps.length;i++)ps[i].classList.remove('active');
+  var bs=document.querySelectorAll('.tab-btn');
+  for(var i=0;i<bs.length;i++)bs[i].classList.remove('active');
+  document.getElementById('panel-'+name).classList.add('active');
+  if(btn)btn.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ══════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════
+function r2(n){return Math.round(n*100)/100;}
+var _tt;
+function toast(msg){
+  var el=document.getElementById('toast');
+  el.textContent=msg;el.classList.add('show');
+  clearTimeout(_tt);_tt=setTimeout(function(){el.classList.remove('show');},2200);
+}
+function refreshAll(){
+  fillCats();updateFoodList();
+  renderProgress();renderGoals();
+  renderCatList();renderLog();
+}
+
+// ══════════════════════════════════════
+// iOS TIP
+// ══════════════════════════════════════
+var isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+var isStandalone=(window.navigator.standalone===true);
+if(isIOS&&!isStandalone){
+  setTimeout(function(){
+    document.getElementById('ios-tip').classList.add('show');
+  },2000);
+}
+
+refreshAll();
+</script>
+</body>
+</html>
